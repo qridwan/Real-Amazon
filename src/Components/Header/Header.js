@@ -5,14 +5,27 @@ import SearchIcon from "@material-ui/icons/Search";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({cart}) => {
+console.log("🚀 ~ file: Header.js ~ line 9 ~ Header ~ cart", cart)
+const getCount = () => {
+  let count = 0;
+  cart.forEach((item) => {
+    count += item.product.quantity;
+  })
+
+  return count;
+
+}
+
   return (
     <Container>
       <HeaderLogo>
+        <Link to="/">
         <img
           src="https://youarecurrent.com/wp-content/uploads/2014/08/Amazon-Logo-schwarz.jpg"
           alt="logo"
         />
+        </Link>
       </HeaderLogo>
       <HeaderOptionAddress>
         <LocationOnIcon />
@@ -42,7 +55,7 @@ const Header = () => {
         <HeaderOptionCart>
           <Link to="/cart">
             <AddShoppingCartIcon />
-            <CartCount>5</CartCount>
+            <CartCount>{getCount()}</CartCount>
           </Link>
         </HeaderOptionCart>
       </HeaderNavItems>
