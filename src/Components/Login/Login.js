@@ -1,13 +1,25 @@
 import React from "react";
 import styled from "styled-components";
-
+import { auth, provider} from "../Home/Firebase"
 const Login = () => {
+    
+const signIn = () => {
+    auth.signInWithPopup(provider)
+    .then((result) => {
+     let user = result.user
+     console.log("🚀 ~ file: Login.js ~ line 9 ~ .then ~ user", user)
+    }).catch((error) => {
+      alert(error.message)
+    });
+}
+
+
   return (
     <Container>
       <Content>
         <AmazonLogo src="https://i0.wp.com/mynintendonews.com/wp-content/uploads/2019/06/amazon_logo.jpg?ssl=1" />
         <h3>Sign into Amazon</h3>
-        <LoginButton>Sign In With Google</LoginButton>
+        <LoginButton onClick={signIn}>Sign In With Google</LoginButton>
       </Content>
     </Container>
   );
