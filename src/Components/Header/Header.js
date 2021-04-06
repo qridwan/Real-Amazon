@@ -1,30 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import Badge from "@material-ui/core/Badge";
+import { withStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
 import SearchIcon from "@material-ui/icons/Search";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../App";
+import { auth } from "../Home/Firebase";
 
-const Header = ({cart}) => {
-console.log("🚀 ~ file: Header.js ~ line 9 ~ Header ~ cart", cart)
-const getCount = () => {
-  let count = 0;
-  cart.forEach((item) => {
-    count += item.product.quantity;
-  })
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0 4px",
+  },
+}))(Badge);
 
-  return count;
+const Header = ({ cart }) => {
+  const [user, setUser] = useContext(UserContext);
+  const getCount = () => {
+    let count = 0;
+    cart.forEach((item) => {
+      count += item.product.quantity;
+    });
+    return count;
+  };
 
-}
+  const signOut = () => {
+    auth.signOut().then(() => {
+      localStorage.removeItem("user");
+      setUser(null);
+    });
+  };
 
   return (
     <Container>
       <HeaderLogo>
         <Link to="/">
-        <img
-          src="https://youarecurrent.com/wp-content/uploads/2014/08/Amazon-Logo-schwarz.jpg"
-          alt="logo"
-        />
+          <img
+            src="https://youarecurrent.com/wp-content/uploads/2014/08/Amazon-Logo-schwarz.jpg"
+            alt="logo"
+          />
         </Link>
       </HeaderLogo>
       <HeaderOptionAddress>
@@ -43,8 +63,8 @@ const getCount = () => {
       </HeaderSearch>
 
       <HeaderNavItems>
-        <HeaderOption>
-          <OptionLineOne>Hello, Ridwan</OptionLineOne>
+        <HeaderOption onClick={signOut}>
+          <OptionLineOne>Hello, {user.name}</OptionLineOne>
           <OptionLineTwo>Account & Lists</OptionLineTwo>
         </HeaderOption>
         <HeaderOption>
@@ -54,8 +74,11 @@ const getCount = () => {
 
         <HeaderOptionCart>
           <Link to="/cart">
-            <AddShoppingCartIcon />
-            <CartCount>{getCount()}</CartCount>
+            <IconButton aria-label="cart">
+              <StyledBadge badgeContent={getCount()} color="secondary">
+                <ShoppingCartIcon color="secondary" />
+              </StyledBadge>
+            </IconButton>
           </Link>
         </HeaderOptionCart>
       </HeaderNavItems>
@@ -66,11 +89,16 @@ const getCount = () => {
 export default Header;
 const Container = styled.div`
   height: 60px;
+  width: 100%;
+  overflow: hidden;
   background-color: #000000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 `;
 const HeaderLogo = styled.div`
   img {
@@ -84,9 +112,12 @@ const HeaderOptionAddress = styled.div`
   display: flex;
   align-items: center;
 `;
-const OptionLineOne = styled.div``;
+const OptionLineOne = styled.div`
+  font-size: 0.8rem;
+`;
 const OptionLineTwo = styled.div`
   font-weight: bold;
+  font-size: 0.6rem;
 `;
 const HeaderSearch = styled.div`
   display: flex;
@@ -122,6 +153,7 @@ const HeaderNavItems = styled.div`
 `;
 const HeaderOption = styled.div`
   padding: 10px 9px 10px 9px;
+  cursor: pointer;
 `;
 const HeaderOptionCart = styled.div`
   display: flex;

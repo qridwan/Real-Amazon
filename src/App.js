@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import Cart from "./Components/Cart/Cart";
 import Header from "./Components/Header/Header";
 import Home from "./Components/Home/Home";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
-
 import { db } from "./Components/Home/Firebase";
 import Login from "./Components/Login/Login";
+import CategoryPage from "./Components/Categories/CategoryPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+export const UserContext = createContext();
 
 function App() {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [cart, setCart] = useState([]);
-
   const getCartItems = () => {
     db.collection("CartItems").onSnapshot((snapshot) => {
       let tempProduct = snapshot.docs.map((doc) => ({
@@ -25,24 +29,31 @@ function App() {
   useEffect(() => {
     getCartItems();
   }, []);
-  console.log(cart);
+
+  console.log(user);
   return (
-    <Router>
-      <Container>
-        <Header cart={cart} />
-        <Switch>
-          <Route path="/cart">
-            <Cart cart={cart} />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-        </Switch>
-      </Container>
-    </Router>
+    <UserContext.Provider value={[user, setUser]}>
+      <Router>
+        {!user ? (
+          <Login />
+        ) : (
+          <Container>
+            <Header cart={cart} />
+            <Switch>
+              <Route path="/cart">
+                <Cart cart={cart} />
+              </Route>
+              <Route path="/categories/:category">
+                <CategoryPage/>
+              </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </Container>
+        )}
+      </Router>
+    </UserContext.Provider>
   );
 }
 
@@ -50,4 +61,5 @@ export default App;
 
 const Container = styled.div`
   background-color: white;
+  margin-top: 60px;
 `;

@@ -1,27 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../Home/Firebase";
 
 const Product = ({ title, price, image, rating, id }) => {
-  console.log(id)
   const addToCart = () => {
     const cartItem = db.collection("CartItems").doc(id);
     cartItem.get().then((doc) => {
-    console.log("🚀 ~ file: Product.js ~ line 9 ~ cartItem.get ~ doc", doc)
-      
       if (doc.exists) {
         cartItem.update({
           quantity: doc.data().quantity + 1,
         });
-      }else{
-        db.collection('CartItems').doc(id).set({
+      } else {
+        db.collection("CartItems").doc(id).set({
           name: title,
           image: image,
           price: price,
-          quantity: 1
-
-        })
+          quantity: 1,
+        });
       }
     });
   };
@@ -32,15 +27,16 @@ const Product = ({ title, price, image, rating, id }) => {
       <Rating>
         {Array(rating)
           .fill()
-          .map((rate) => (
+          .map(() => (
             <span>⭐</span>
           ))}
       </Rating>
-      <Image src={image}></Image>
+      <ImageContainer>
+        <Image src={image}></Image>
+      </ImageContainer>
+
       <ActionSection>
-       <Link to="/cart"> <AddToCartButton
-        onClick={addToCart}>ADD to cart</AddToCartButton>
-        </Link>
+        <AddToCartButton onClick={addToCart}>ADD to cart</AddToCartButton>
       </ActionSection>
     </Container>
   );
@@ -49,27 +45,34 @@ const Product = ({ title, price, image, rating, id }) => {
 export default Product;
 
 const Container = styled.div`
+display: flex;
+flex-direction: column;
 background-color: white;
-border: 2px solid grey;
+border: 1px solid grey;
 z-index: 1;
 flex: 1;
 padding 20px;
 margin: 10px;
-max-height: 300px;
-display: flex;
-flex-direction: column;
-
+width: 300px;
+min-height: 350px;
+position: relative;
 `;
 
 const Title = styled.span``;
+const ImageContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const Price = styled.span`
   font-weight: 600;
   margin-top: 10px;
 `;
 const Rating = styled.div``;
 const Image = styled.img`
-  max-height: 200px;
+  height: 150px;
+  width: 150px;
   object-fit: contain;
+  margin: 0 auto;
 `;
 const AddToCartButton = styled.button`
   height: 30px;
@@ -79,10 +82,13 @@ const AddToCartButton = styled.button`
   border: 2px solid black;
   border-radius: 2px;
   cursor: pointer;
+  position: absolute;
+  bottom: 10px;
 `;
 
 const ActionSection = styled.div`
-  display: grid;
-  place-items: center;
+  background-color: cyan;
   margin-top: 10px;
+  justify-content: center;
+  display: flex; ;
 `;
