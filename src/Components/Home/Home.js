@@ -6,38 +6,15 @@ import Laptop from "../Categories/Laptop";
 import Mobile from "../Categories/Mobile";
 import Camera from "../Categories/Camera";
 import { Link } from "react-router-dom";
+import AllProduct from "../AllProduct/AllProduct";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const getProducts = () => {
-    //getting all the products from db
-    db.collection("Products").onSnapshot((snapshot) => {
-      let tempProduct = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        product: doc.data(),
-      }));
-      setProducts(tempProduct);
-    });
-  };
-  useEffect(() => {
-    getProducts();
-  }, []);
 
+ 
   return (
     <Container>
       <Banner></Banner>
-      <Content>
-        {products.map((obj) => (
-          <Product
-            title={obj.product.name}
-            rating={obj.product.rating}
-            price={obj.product.price}
-            image={obj.product.image}
-            id={obj.id}
-            key={obj.id}
-          />
-        ))}
-      </Content>
+      <AllProduct/>
       <CategorySection>
         <CategoryTitle>Categories:</CategoryTitle>
         <CategoriesList>
@@ -75,11 +52,10 @@ const Banner = styled.div`
   background-position: center;
   background-size: cover;
 `;
-const Content = styled.div`
-background-color: white
-padding-left: 10px;
-margin-top: -360px;
-display: flex;
+const ContentTitle = styled.div`
+text-align: center;
+margin-bottom: 4px;
+margin-top: -40px;
 `;
 
 const CategorySection = styled.div`

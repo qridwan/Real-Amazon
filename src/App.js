@@ -9,6 +9,8 @@ import { db } from "./Components/Home/Firebase";
 import Login from "./Components/Login/Login";
 import CategoryPage from "./Components/Categories/CategoryPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AllProduct from "./Components/AllProduct/AllProduct";
+import Details from "./Components/Details/Details";
 
 
 export const UserContext = createContext();
@@ -45,6 +47,12 @@ function App() {
               </Route>
               <Route path="/categories/:category">
                 <CategoryPage/>
+              </Route>
+              <Route path="/all">
+                <AllProduct/>
+              </Route>
+              <Route path="/details/:category/:id">
+                <Details/>
               </Route>
               <Route exact path="/">
                 <Home />

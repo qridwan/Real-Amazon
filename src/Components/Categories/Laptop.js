@@ -15,7 +15,8 @@ const Laptop = () => {
 
 export default Laptop;
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 const Image = styled.img`
   height: 150px;
 `;

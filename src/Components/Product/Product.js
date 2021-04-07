@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../Home/Firebase";
 
-const Product = ({ title, price, image, rating, id }) => {
+const Product = ({ title, price, image, rating, id, category, pdID }) => {
   const addToCart = () => {
     const cartItem = db.collection("CartItems").doc(id);
     cartItem.get().then((doc) => {
@@ -20,25 +21,31 @@ const Product = ({ title, price, image, rating, id }) => {
       }
     });
   };
-  return (
-    <Container>
-      <Title>{title}</Title>
-      <Price>${price}</Price>
-      <Rating>
-        {Array(rating)
-          .fill()
-          .map(() => (
-            <span>⭐</span>
-          ))}
-      </Rating>
-      <ImageContainer>
-        <Image src={image}></Image>
-      </ImageContainer>
 
-      <ActionSection>
-        <AddToCartButton onClick={addToCart}>ADD to cart</AddToCartButton>
-      </ActionSection>
-    </Container>
+  return (
+    <FullContent className="mb-2 mx-2">
+      <Container>
+        <Link to={`/details/${category}/${pdID}`}>
+          {" "}
+          <Title>{title}</Title>{" "}
+        </Link>
+        <Price>${price}</Price>
+        <Rating>
+          {Array(rating)
+            .fill()
+            .map(() => (
+              <span>⭐</span>
+            ))}
+        </Rating>
+        <ImageContainer>
+          <Image src={image}></Image>
+        </ImageContainer>
+
+        <ActionSection>
+          <AddToCartButton onClick={addToCart}>ADD to cart</AddToCartButton>
+        </ActionSection>
+      </Container>
+    </FullContent>
   );
 };
 
@@ -52,12 +59,12 @@ border: 1px solid grey;
 z-index: 1;
 flex: 1;
 padding 20px;
-margin: 10px;
-width: 300px;
-min-height: 350px;
+height: 500px;
+width: 350px;
 position: relative;
 `;
 
+const FullContent = styled.div``;
 const Title = styled.span``;
 const ImageContainer = styled.div`
   display: flex;
@@ -69,10 +76,10 @@ const Price = styled.span`
 `;
 const Rating = styled.div``;
 const Image = styled.img`
-  height: 150px;
-  width: 150px;
   object-fit: contain;
-  margin: 0 auto;
+  position: absolute;
+  bottom: 50px;
+  left: 14%;
 `;
 const AddToCartButton = styled.button`
   height: 30px;
