@@ -9,7 +9,7 @@ by, Mohammad RIdwanul Alam.
     bootstrap for styling
     styled-component
     material ui for Icons
-    firebase for Authentication & Backend
+    firebase for Authentication, Hosting & Backend
 
 # live site : https://real-94186.web.app/ 
 
