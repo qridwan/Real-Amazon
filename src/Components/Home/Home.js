@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { db } from "./Firebase";
-import Product from "../Product/Product";
 import Laptop from "../Categories/Laptop";
 import Mobile from "../Categories/Mobile";
 import Camera from "../Categories/Camera";
 import { Link } from "react-router-dom";
 import AllProduct from "../AllProduct/AllProduct";
+import { Gallery } from "./SliderFacilitites";
+import { Footer } from "./Footer";
 
 const Home = () => {
 
@@ -15,6 +15,7 @@ const Home = () => {
     <Container>
       <Banner></Banner>
       <AllProduct/>
+      <Gallery/>
       <CategorySection>
         <CategoryTitle>Categories:</CategoryTitle>
         <CategoriesList>
@@ -35,6 +36,7 @@ const Home = () => {
           </Category>
         </CategoriesList>
       </CategorySection>
+      <Footer/>
     </Container>
   );
 };
@@ -61,7 +63,6 @@ margin-top: -40px;
 const CategorySection = styled.div`
   margin-top: 20px;
   height: 300px;
-  overflowx: scroll;
 `;
 const CategoryTitle = styled.h2`
   text-align: center;
@@ -69,8 +70,9 @@ const CategoryTitle = styled.h2`
 `;
 const CategoriesList = styled.div`
   display: flex;
-  justify-content: center;
-`;
+  overflow-x: scroll;
+  `
+
 const Category = styled.div`
   flex: 1;
   text-align: center;

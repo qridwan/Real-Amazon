@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import styled from "styled-components";
 import { db } from "../Home/Firebase";
+import './Details.css'
 
 const Details = () => {
   const { category, id } = useParams();
@@ -42,48 +42,39 @@ const Details = () => {
   }, []);
 
   const { seller, name, img, price, star, stock, wholePrice, url } = pdDetails;
-  console.log(
-    "🚀 ~ file: Details.js ~ line 55 ~ Details ~ pdDetails",
-    pdDetails
-  );
 
   return (
-    <Container>
-      <Title>{name}</Title>
-      <Seller>Seller: {seller}</Seller>
-      <Image src={img} />
-      <Star>
-        {" "}
-        {Array(star)
-          .fill()
-          .map(() => (
-            <span>⭐</span>
-          ))}{" "}
-      </Star>
-      <Features>
-        {pdDetails.features?.map((line, index) => (
-          <li key={index}>
-            {line.description} : {line.value}
-          </li>
-        ))}
-      </Features>
-      <Price>Retail Price: ${price} <br/> Whole Price: ${wholePrice}</Price>
-      <Stock>{stock && `In Stock : ${stock}`} 
-      </Stock>
-      <AmazonSite>Buy From Real Site</AmazonSite>
+    <>
+     <div class="product-card">
+    <div class="product-image">
+    <img src={img} alt="" />
+  </div>
+  <div class="product-details">
+    <h1>{name}</h1>
+    <small>Seller: {seller}</small>
+    <p>
+      {pdDetails.features?.map((line, index) => (
+            <li key={index}>
+              {line.description} : {line.value}
+            </li>
+          ))}</p>
+          <p>{stock && `In Stock : ${stock}`} <br/>
+          {Array(star)
+            .fill()
+            .map(() => (
+              <span>⭐</span>
+            ))}
+          <hr></hr></p>
+          <p>Retail Price: ${price} <br /> Whole Price: ${wholePrice}</p>
+    <button type="button" class="btn"><a href={url} target="_blank" rel="noopener noreferrer"title="amazon-link"> Buy Now</a></button>
+  </div>
+</div>
 
-    </Container>
+
+    </>
   );
 };
 
 export default Details;
 
-const Container = styled.div``;
-const Title = styled.div``;
-const Seller = styled.div``;
-const Image = styled.img``;
-const Features = styled.ul``;
-const Star = styled.div``;
-const Price = styled.div``;
-const Stock = styled.div``;
-const AmazonSite = styled.button``;
+

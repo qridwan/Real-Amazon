@@ -68,12 +68,14 @@ const Header = ({ cart }) => {
           <OptionLineTwo>Account & Lists</OptionLineTwo>
         </HeaderOption>
         <HeaderOption>
+          <Link to="/orders">
           <OptionLineOne>Returns</OptionLineOne>
           <OptionLineTwo>Orders</OptionLineTwo>
+          </Link>
         </HeaderOption>
 
         <HeaderOptionCart>
-          <Link to="/cart">
+          <Link style={{textDecoration: ' none'}} to="/cart">
             <IconButton aria-label="cart">
               <StyledBadge badgeContent={getCount()} color="secondary">
                 <ShoppingCartIcon color="secondary" />
@@ -114,10 +116,12 @@ const HeaderOptionAddress = styled.div`
 `;
 const OptionLineOne = styled.div`
   font-size: 0.8rem;
+  color: white;
 `;
 const OptionLineTwo = styled.div`
   font-weight: bold;
   font-size: 0.6rem;
+  color: white;
 `;
 const HeaderSearch = styled.div`
   display: flex;

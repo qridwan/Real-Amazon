@@ -11,6 +11,7 @@ import CategoryPage from "./Components/Categories/CategoryPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AllProduct from "./Components/AllProduct/AllProduct";
 import Details from "./Components/Details/Details";
+import Orders from "./Components/Orders/Orders";
 
 
 export const UserContext = createContext();
@@ -32,7 +33,6 @@ function App() {
     getCartItems();
   }, []);
 
-  console.log(user);
   return (
     <UserContext.Provider value={[user, setUser]}>
       <Router>
@@ -50,6 +50,9 @@ function App() {
               </Route>
               <Route path="/all">
                 <AllProduct/>
+              </Route>
+              <Route path="/orders">
+                <Orders/>
               </Route>
               <Route path="/details/:category/:id">
                 <Details/>

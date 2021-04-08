@@ -91,11 +91,10 @@ const CartItemPrice = styled.div`
 const CartQuantityContainer = styled.div`
 select{
     border-radius:7px;
-    background-color: cyan;
+    background-color: white;
     padding: 8px ;
     box-shadow: 0 2px 5px rgba(15, 17, 17, 0.15)
     :focus{
-  console.log("🚀 ~ file: CartItem.js ~ line 87 ~ CartItem ~ quantity", quantity)
         outline: none;
     }
 }

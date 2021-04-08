@@ -25,7 +25,7 @@ const Product = ({ title, price, image, rating, id, category, pdID }) => {
   return (
     <FullContent className="mb-2 mx-2">
       <Container>
-        <Link to={`/details/${category}/${pdID}`}>
+        <Link style={{textDecoration: 'none'}} to={`/details/${category}/${pdID}`}>
           {" "}
           <Title>{title}</Title>{" "}
         </Link>
@@ -60,12 +60,16 @@ z-index: 1;
 flex: 1;
 padding 20px;
 height: 500px;
-width: 350px;
+width: 300px;
 position: relative;
 `;
 
 const FullContent = styled.div``;
-const Title = styled.span``;
+const Title = styled.span`
+color: black;
+text-decoration: none;
+font-weight: bold;
+`;
 const ImageContainer = styled.div`
   display: flex;
   align-items: center;
