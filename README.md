@@ -2,7 +2,8 @@
 by, Mohammad Ridwanul Alam.
 
 ![Main-Header](/scrnshot/homeSS.png)
-![Main-Header](/scrnshot/cart.png)
+![cartr](/scrnshot/cart.png)
+![order](/scrnshot/order.png)
 # Main Features
 - Firebase Authentication employed through React Private Route.
 
