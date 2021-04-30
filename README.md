@@ -1,9 +1,17 @@
-# The Real amazon clone App
-by, Mohammad RIdwanul Alam.
+# Amazon Clone e-Commerce 
+by, Mohammad Ridwanul Alam.
 
-- This is a fullstack REACT application. 
-- I mainly force myself to amply the Firebase-realtime-database for my learning purpose. 
-- This is my first project with firebase firestore.
+![Main-Header](/scrnshot/homeSS.png)
+![Main-Header](/scrnshot/cart.png)
+# Main Features
+- Firebase Authentication employed through React Private Route.
+
+- User must go through the login page first.
+
+- Product Data fetched from Firestore Database.
+
+- User can remove or add  product to the cart & can change the product quantity before proceeding order confirmation.
+
 
 # core dependencies are :
     react router dom
